@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/services.dart';  // Pour utiliser TextInputFormatter
 import 'package:formulaire/utils/colors.dart';
 
@@ -145,6 +146,35 @@ class _SecondScreenState extends State<SecondScreen> {
             ],
           ),
         ),
+=======
+import 'package:formulaire/utils/colors.dart';
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          
+          backgroundColor: AppColors.gray200,
+          title: const Text("Creation de visite",
+          style: TextStyle(
+            fontSize: 25,
+          ),),
+          centerTitle: true,
+          actions: [
+            IconButton(onPressed: (){}, icon: const Icon(Icons.supervised_user_circle))
+        
+          ],
+        
+        ),
+      ),
+      body: const Center(
+        child: Text("Bienvenue sur le deuxième écran !"),
+>>>>>>> e50dfe57caeb4a44e5bfb9c18a734bacb22555fa
       ),
     );
   }
