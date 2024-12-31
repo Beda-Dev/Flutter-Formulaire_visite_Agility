@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(child: Loginform()),
       ),
@@ -36,7 +37,7 @@ class LoginFormState extends State<Loginform> {
   final passwordController = TextEditingController();
   final AuthService _authService = AuthService();
 
-  // Fonction pour effectuer la connexion
+
   Future<void> _login() async {
     final email = emailController.text;
     final password = passwordController.text;
@@ -125,6 +126,7 @@ class LoginFormState extends State<Loginform> {
                   return null;
                 },
                 controller: emailController,
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 25),
               const Text(
@@ -156,9 +158,10 @@ class LoginFormState extends State<Loginform> {
                   return null;
                 },
                 controller: passwordController,
+                keyboardType: TextInputType.text,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end, // Aligner à droite
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
                     onPressed: () {},
@@ -166,7 +169,7 @@ class LoginFormState extends State<Loginform> {
                       "Oublié ?",
                       style: TextStyle(
                           color: AppColors
-                              .gray500), // Personnaliser la couleur du texte
+                              .gray500),
                     ),
                   ),
                 ],
