@@ -4,6 +4,7 @@ import 'models/user.dart';
 import 'utils/colors.dart';
 import '/services/auth_service.dart';
 import '/views/visite_form_screen.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(child: Loginform()),
+        backgroundColor: Colors.white,
+        body: LoaderOverlay(child: Center(child: Loginform())),
       ),
     );
   }
@@ -37,26 +39,18 @@ class LoginFormState extends State<Loginform> {
   final passwordController = TextEditingController();
   final AuthService _authService = AuthService();
 
-
   Future<void> _login() async {
+    context.loaderOverlay.show();
     final email = emailController.text;
     final password = passwordController.text;
     final user = User(email: email, password: password);
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SecondScreen()),
-    );
-
     try {
       if (kDebugMode) {
         print({user.email, user.password});
       }
       final response = await _authService.login(user);
-      if (kDebugMode) {
-        print("connection reussi : $response");
-      }
-      if(mounted){
+      if (mounted) {
+        context.loaderOverlay.hide();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const SecondScreen()),
@@ -64,10 +58,17 @@ class LoginFormState extends State<Loginform> {
       }
 
     } catch (e) {
+
       if (kDebugMode) {
         print("connection echouer : $e");
       }
+    } finally{
+      if (mounted) {
+        context.loaderOverlay.hide();
+      }
+
     }
+
   }
 
   @override
@@ -167,9 +168,7 @@ class LoginFormState extends State<Loginform> {
                     onPressed: () {},
                     child: const Text(
                       "Oublié ?",
-                      style: TextStyle(
-                          color: AppColors
-                              .gray500),
+                      style: TextStyle(color: AppColors.gray500),
                     ),
                   ),
                 ],

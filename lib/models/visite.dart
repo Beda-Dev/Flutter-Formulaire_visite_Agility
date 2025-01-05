@@ -13,7 +13,7 @@ class Visite {
   final String? plaque_vehicule;
   final String email;
   final String number;
-  final Set<Visiteur> membre_visites ;
+  final List<Visiteur> membre_visites ;
 
   Visite( this.date_fin, this.entreprise, this.Numero_cni, this.plaque_vehicule, this.email, this.number, this.membre_visites, this.motif_id, {required this.type , required this.date_debut, required this.genre , required this.nom, required  this.prenom, });
 
@@ -34,6 +34,25 @@ class Visite {
     Numéro de téléphone: $number
     Membres de la visite: ${membre_visites.map((e) => e.toString()).join(', ')}
   ''';
+  }
+
+  Map<String,dynamic> toJson() {
+    return {
+      "type": type,
+      "date_debut": date_debut,
+      "date_fin": date_fin,
+      "genre":genre,
+      "motif_id": motif_id,
+      "nom":nom,
+      "prenom":prenom,
+      "enteprise":entreprise,
+      "Numero_cni": Numero_cni,
+      "plaque_vehicule": plaque_vehicule,
+      "email" :email,
+      "number": number,
+      "membre_visites": membre_visites.map((e) => e.tojson()).toList()
+
+    };
   }
 
 

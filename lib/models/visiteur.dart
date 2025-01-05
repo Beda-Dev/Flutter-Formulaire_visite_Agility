@@ -9,4 +9,8 @@ class Visiteur {
   String toString() {
     return 'Nom: $nom, Prénom: $prenom, CNI: ${cni ?? "Non spécifiée"}';
   }
+
+  Map<String, dynamic> tojson() {
+    return {"nom": nom, "prenom": prenom, "numero_cni": cni};
+  }
 }
